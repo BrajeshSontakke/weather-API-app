@@ -7,7 +7,7 @@ import com.example.weather.model.WeatherResponse;
 @Service
 public class WeatherService {
 
-    private final String API_KEY = "db1b090df45012692e43da5b9d5969b8"; // Replace with your actual API key
+    private final String API_KEY = "YOUR_API_SECRET_KEY"; // Replace with your actual API key
     private final String API_URL = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric";
 
     public WeatherResponse getWeather(String city) {
