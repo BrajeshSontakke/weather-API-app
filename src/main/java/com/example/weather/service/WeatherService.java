@@ -1,5 +1,6 @@
 package com.example.weather.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.example.weather.model.WeatherResponse;
@@ -7,12 +8,14 @@ import com.example.weather.model.WeatherResponse;
 @Service
 public class WeatherService {
 
-    private final String API_KEY = "YOUR_API_SECRET_KEY"; // Replace with your actual API key
-    private final String API_URL = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric";
+    @Value("${weather.api.key}")
+    private String apiKey;
 
+    private final String API_URL = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric";
+        
     public WeatherResponse getWeather(String city) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = String.format(API_URL, city, API_KEY);
+        String url = String.format(API_URL, city, apiKey);
         // Get response as Map
         java.util.Map response = restTemplate.getForObject(url, java.util.Map.class);
         if (response == null || response.get("main") == null || response.get("weather") == null) {
